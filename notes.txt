@@ -1,0 +1,37 @@
+SESSION 1 - data types, variables and operations
+- python
+	- designed to be readable
+	- 3rd party libraries
+	- open source
+- variable types
+	- variable = reusable label assigned to a data value
+	- integer = whole numbers
+	- float = decimal numbers
+	- string - written between "" or ''
+- operands
+	- + - * / % (modulo) **
+- files >< console
+	- all lines >< one line as entered
+	- must print to see output >< output shown automatically
+	- repeatable >< must be retyped
+- errors
+	- NameError - variable not defined
+	- ZeroDivisionError
+	- TypeError
+- concatenation = joining two string together, can use +
+- method = repeatable piece of code that completes a task for a specific data type
+- comments
+	- using #
+- homework
+	- exercise 1.5 using .format() 
+	- questions in student guide
+
+FUNCTIONS
+x print()
+x str()
+
+METHODS
+m .upper()
+m .lower()
+m .title()
+m .format() e.g. "{} oranges costs £{}".format(var1, var2)
