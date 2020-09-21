@@ -1,23 +1,23 @@
 SESSION 1 - data types, variables and operations
+- programming language
+	- a language with a set of rules
+	- communicates instructions to a computer
 - python
 	- designed to be readable
 	- 3rd party libraries
 	- open source
+- function = repeatable piece of code that completes a specific task
 - variable types
 	- variable = reusable label assigned to a data value
 	- integer = whole numbers
 	- float = decimal numbers
-	- string - written between "" or ''
+	- string = text and characters, written between "" or ''
 - operands
-	- + - * / % (modulo) **
+	- + - * / %(modulo) **
 - files >< console
 	- all lines >< one line as entered
 	- must print to see output >< output shown automatically
 	- repeatable >< must be retyped
-- errors
-	- NameError - variable not defined
-	- ZeroDivisionError
-	- TypeError
 - concatenation = joining two string together, can use +
 - method = repeatable piece of code that completes a task for a specific data type
 - comments
@@ -25,6 +25,20 @@ SESSION 1 - data types, variables and operations
 - homework
 	- exercise 1.5 using .format() 
 	- questions in student guide
+	
+SESSION 2 - input, loops and functions
+
+SESSION 3 - if statements
+
+SESSION 4 - lists and dictionaries
+
+SESSION 5 - files, modules and APIs
+
+SESSION 6 - project planning and group project
+
+SESSION 7 - group project
+
+SESSION 8 - group project and presentations
 
 FUNCTIONS
 x print()
@@ -35,3 +49,8 @@ m .upper()
 m .lower()
 m .title()
 m .format() e.g. "{} oranges costs £{}".format(var1, var2)
+
+ERRORS
+	- NameError - variable not defined
+	- ZeroDivisionError
+	- TypeError
