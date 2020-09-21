@@ -7,13 +7,24 @@ SESSION 1 - data types, variables and operations
 	- 3rd party libraries
 	- open source
 - function = repeatable piece of code that completes a specific task
-- variable types
+- data types
 	- variable = reusable label assigned to a data value
 	- integer = whole numbers
+		- 0b (binary), 0o (octal) and 0x (hexadecimal) as prefix to convert integer
 	- float = decimal numbers
+		- 64-bit
+		- max value = 1.8x10^308 then inf
+		- closest to zero = 5.0x10^(-324)
+	- complex = complex numbers
+		- <real>+<imaginary>j
 	- string = text and characters, written between "" or ''
+		- use \ to escape a character, use \newline to split over multiple lines
+		- use triple quotes to avoid escaping
+	- boolean = True or False
 - operands
 	- + - * / %(modulo) **
+- operators
+	- in, not in
 - files >< console
 	- all lines >< one line as entered
 	- must print to see output >< output shown automatically
@@ -23,7 +34,7 @@ SESSION 1 - data types, variables and operations
 - comments
 	- using #
 - homework
-	- exercise 1.5 using .format() 
+	- exercise 1.5 using .format() - done
 	- questions in student guide
 	
 SESSION 2 - input, loops and functions
@@ -43,6 +54,7 @@ SESSION 8 - group project and presentations
 FUNCTIONS
 x print()
 x str()
+x type() for variable type
 
 METHODS
 m .upper()
