@@ -48,17 +48,18 @@ SESSION 2 - input, loops and functions
 		- direction (forward, right, left using side length and angles in degrees)
 		- color to colour the shape
 		- .done()
-- for loops
+- for loops = definite iteration
 	- repeat block of code multiple times
 	- for, variable, in, values, colon, body
 	- range() function counts from 0
 - function = reusable block of code
-	- def, name, brackets for arguments, colon, body
+	- def, name, brackets for parameters, colon, body
 	- argument = data given to function when called
 	- use return statement
 	- call using function_name(arguments)
+- method = function in a class
 - homework
-	- questions in student guide
+	- questions in student guide - done
 
 SESSION 3 - if statements
 
