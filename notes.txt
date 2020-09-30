@@ -61,7 +61,21 @@ SESSION 2 - input, loops and functions
 - homework
 	- questions in student guide - done
 
-SESSION 3 - if statements
+SESSION 3 - comparison operators, logical operators and if statements
+- boolean = True or False
+- comparison operators
+	- common operators: == != > < >= <=
+- logical operators
+	- and, or, not
+- if statements
+	- run block of code depending on whether condition is True or False
+	- if, condition, colon, body
+	- elif and else
+- random
+	- library for random data
+- homework
+	- questions in student guide
+	
 
 SESSION 4 - lists and dictionaries
 
@@ -80,6 +94,7 @@ x type() for variable type
 x input() to interactively obtain variable values from user
 x int() to convert string to integer
 x range()
+x random.randint(val1, val2) random number between two values
 
 METHODS
 m .upper()
