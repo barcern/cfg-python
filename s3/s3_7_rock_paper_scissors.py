@@ -14,7 +14,6 @@ def random_choice():
         choice = 'paper'
     return choice
 
-
 my_choice = input('Choose rock, scissors or paper: ')
 opponent_choice = random_choice()
 print('Your opponent chose {}'.format(opponent_choice))

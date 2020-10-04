@@ -64,7 +64,8 @@ SESSION 2 - input, loops and functions
 SESSION 3 - comparison operators, logical operators and if statements
 - boolean = True or False
 - comparison operators
-	- common operators: == != > < >= <=
+	- compare values to determine whether a statement is True or False
+	- available operators: == != > < >= <=
 - logical operators
 	- and, or, not
 - if statements
@@ -95,6 +96,7 @@ x input() to interactively obtain variable values from user
 x int() to convert string to integer
 x range()
 x random.randint(val1, val2) random number between two values
+x float() to convert string to float
 
 METHODS
 m .upper()

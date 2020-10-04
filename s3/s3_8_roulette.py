@@ -29,16 +29,21 @@ def choose_random_colour():
 
 random_colour = choose_random_colour()
 
+print(f"The roulette ball landed on {random_number} {random_colour}")
+
 # Game rules
-if (colour == random_colour):
+if (colour == random_colour) and (number == random_number):
+    win = bet * 100
+    print("User wins 100 times the amount that was bet")
+elif (colour == random_colour):
     win = bet
     print("User keeps the amount that was bet")
 elif (number == random_number):
     win = bet * 2
-elif (colour == random_colour) and (number == random_number):
-    win = bet * 100
+    print("User wins double the amount that was bet")
 else:
     win = 0
+    print("User wins nothing")
 
 # Output amount won
 print(f"You have just won {win}, congratulations!")
