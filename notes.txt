@@ -66,6 +66,7 @@ SESSION 3 - comparison operators, logical operators and if statements
 - comparison operators
 	- compare values to determine whether a statement is True or False
 	- available operators: == != > < >= <=
+	- act on operands
 - logical operators
 	- and, or, not
 - if statements
