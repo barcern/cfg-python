@@ -76,10 +76,28 @@ SESSION 3 - comparison operators, logical operators and if statements
 - random
 	- library for random data
 - homework
-	- questions in student guide
+	- questions in student guide - done
 	
 
 SESSION 4 - lists and dictionaries
+- lists
+	= ordered things of values
+	- [item1, item2, item3]
+	- can use more than one data type in a lists
+	- index
+		- use index to access a value e.g. list[5]
+		- index counts from 0
+		- use index to re-assign value in a list
+	- operators
+		- in
+		- not in
+- dictionaries
+	- collection of labelled items as key-value pairs
+	- {'key': 'value', 'key': 'value'}
+	- keys
+		- use keys to access a value e.g. dict['key']
+- homework
+	- questions in student guide
 
 SESSION 5 - files, modules and APIs
 
@@ -96,14 +114,22 @@ x type() for variable type
 x input() to interactively obtain variable values from user
 x int() to convert string to integer
 x range()
-x random.randint(val1, val2) random number between two values
+x random.randint(val1, val2) to get random number between two values
 x float() to convert string to float
+x len() for lists
+x max() for lists
+x min() for lists
+x sorted() for lists
+x reversed() for lists, returns an iterator
+x sum() for lists
+x random.choice() to return a random item from a list
 
 METHODS
 m .upper()
 m .lower()
 m .title()
 m .format() e.g. "{} oranges costs £{}".format(var1, var2)
+m .append() for lists
 
 ERRORS
 	- NameError - variable not defined
