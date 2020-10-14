@@ -88,17 +88,20 @@ SESSION 4 - lists and dictionaries
 		- use index to access a value e.g. list[5]
 		- index counts from 0
 		- use index to re-assign value in a list
-	- operators which return True or False
-		- in
-		- not in
+	- operators 
+		- in and not in which return True or False
+		- + and *
+	- slicing possible, list[index1:index2:step]
+	- can be nested
 - dictionaries
 	- collections of labelled items as key-value pairs
 	- {'key': 'value', 'key': 'value'}
 	- keys
 		- use keys to access a value e.g. dict['key']
+		- must be unique and immutable
 	- can use dictionaries in lists or dictionaries in dictionaries
 - homework
-	- questions in student guide
+	- questions in student guide - done
 
 SESSION 5 - files and modules
 - homework

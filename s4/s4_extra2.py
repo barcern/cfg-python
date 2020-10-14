@@ -1,5 +1,5 @@
 # Write a Python program to count the number of strings where the string length is 2
-# e.e for the list words = ['hi', 'hello', 'no', 'is'] should give an output of 3
+# e.g. for the list words = ['hi', 'hello', 'no', 'is'] should give an output of 3
 
 # Create a list and initialise a counter
 string_list = ['hello', 'hi', 'am', 'table', 'egg', 'ok']

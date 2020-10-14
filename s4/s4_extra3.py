@@ -7,7 +7,8 @@
 inventory = {
   'gold' : 500,
   'pouch' : ['flint', 'twine', 'gemstone'],
-  'backpack' : ['xylophone', 'dagger', 'bedroll', 'bread loaf']
+  'backpack' : ['xylophone', 'dagger', 'bedroll', 'bread loaf'],
+
 }
 
 # Add a key called 'pocket'
@@ -16,7 +17,12 @@ print(inventory)
 
 # Set value of 'pocket' key
 inventory['pocket'] = ['seashell', 'strange berry', 'lint']
+print(inventory)
 
 # Add 50 to 'gold' key
 inventory['gold'] = [500, 50]
+print(inventory)
+
+# Alternatively
+inventory['gold'].append(50)
 print(inventory)
