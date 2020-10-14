@@ -11,3 +11,6 @@ for item in costs:
 
 # Print the total cost
 print(f"The total cost of my lunches is £{total_cost:.2f}")
+
+# Alternatively use sum() function
+print(sum(costs))

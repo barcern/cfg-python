@@ -16,3 +16,4 @@ print("Lowest score: ", min(scores))
 # Print scores in descending order
 # Must use list() since reversed() returns an iterator
 print(list(reversed(sorted(scores))))
+print(sorted(scores, reverse=True))

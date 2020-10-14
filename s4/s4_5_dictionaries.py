@@ -1,5 +1,4 @@
 # Print the values of name, post_code and street_number from the dictionary
-
 # Extension: Print the values of longitude and latitude from the inner dictionary (edited)
 
 # Provided dictionary
