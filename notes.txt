@@ -104,6 +104,17 @@ SESSION 4 - lists and dictionaries
 	- questions in student guide - done
 
 SESSION 5 - files and modules
+- files
+	- r, w, a options
+- csv files
+	- import csv module first
+	- store each row as dictionary in a data list
+	- csv.DictWriter and csv.DictReader
+	- use .writeheader() and .writerows() to populate csv file
+- pip
+	= package manager used to install libraries
+	- used via terminal
+	- pip install library_name
 - homework
 	- questions in student guide
 	- project initial thoughts
@@ -130,6 +141,8 @@ x sorted() for lists
 x reversed() for lists, returns an iterator
 x sum() for lists
 x random.choice() to return a random item from a list
+x csv.DictWriter(csv_file, fieldnames)
+x csv.DictReader(csv_file)
 
 METHODS
 m .upper()
@@ -137,6 +150,10 @@ m .lower()
 m .title()
 m .format() e.g. "{} oranges costs £{}".format(var1, var2)
 m .append() for lists
+m .write() for files
+m .read() for files
+m .writeheader() for csv files
+m .writerows() for csv files
 
 ERRORS
 	- NameError - variable not defined
