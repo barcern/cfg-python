@@ -154,6 +154,7 @@ m .write() for files
 m .read() for files
 m .writeheader() for csv files
 m .writerows() for csv files
+m .split() to separate string into sub-strings
 
 ERRORS
 	- NameError - variable not defined
