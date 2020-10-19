@@ -116,8 +116,8 @@ SESSION 5 - files and modules
 	- used via terminal
 	- pip install library_name
 - homework
-	- questions in student guide
-	- project initial thoughts
+	- questions in student guide - done
+	- project initial thoughts - done
 
 SESSION 6 - APIs, project planning and group project
 
