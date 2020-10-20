@@ -120,6 +120,18 @@ SESSION 5 - files and modules
 	- project initial thoughts - done
 
 SESSION 6 - APIs, project planning and group project
+- f-strings perform better
+- APIs
+	- application programming interface
+	- agreed format for different programs to interact
+	- request sent, receive response code + response data
+	- response codes
+		- 200 - all good
+		- 300 - redirection (e.g. due to authentication)
+		- 400 - gone wrong
+- homework
+	- questions in student guide
+	- project initial thoughts pt2
 
 SESSION 7 - group project
 
