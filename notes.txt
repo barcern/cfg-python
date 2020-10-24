@@ -130,7 +130,7 @@ SESSION 6 - APIs, project planning and group project
 		- 300 - redirection (e.g. due to authentication)
 		- 400 - gone wrong
 - homework
-	- questions in student guide
+	- questions in student guide - done
 	- project initial thoughts pt2
 
 SESSION 7 - group project
