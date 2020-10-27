@@ -134,7 +134,7 @@ SESSION 6 - APIs, project planning and group project
 - PyPI = third-party software repo
 - homework
 	- questions in student guide - done
-	- project initial thoughts pt2
+	- project initial thoughts pt2 - done
 
 SESSION 7 - group project
 
