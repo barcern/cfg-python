@@ -128,7 +128,10 @@ SESSION 6 - APIs, project planning and group project
 	- response codes
 		- 200 - all good
 		- 300 - redirection (e.g. due to authentication)
-		- 400 - gone wrong
+		- 400 - client error i.e. gone wrong
+		- 500 - server error
+	- usually use response.content
+- PyPI = third-party software repo
 - homework
 	- questions in student guide - done
 	- project initial thoughts pt2
