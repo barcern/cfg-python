@@ -136,7 +136,12 @@ SESSION 6 - APIs, project planning and group project
 	- questions in student guide - done
 	- project initial thoughts pt2 - done
 
-SESSION 7 - group project
+SESSION 7 - APIs pt2, group project
+- MoSCoW
+- comment code
+- split into functions
+- homework
+	- work on project
 
 SESSION 8 - group project and presentations
 

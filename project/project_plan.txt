@@ -1,0 +1,16 @@
+Dog Recommendation App
+Must
+- ask user for key indicators e.g. height
+- make an API call based on the chosen indicators
+- return a list of suitable breeds
+- hints for user input
+
+Should
+- save results to a file
+- check for incorrect input
+
+Could
+- include a picture of the dogs
+- explore data (e.g. number of breeds, biggest dog, smallest dog)
+
+Won't
