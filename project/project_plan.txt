@@ -10,7 +10,10 @@ Should
 - check for incorrect input
 
 Could
-- include a picture of the dogs
+- make an API call to include a picture of the dogs
 - explore data (e.g. number of breeds, biggest dog, smallest dog)
+- give user all info about a dog
+- option to start a new search
+- option to see available options e.g. for temperament
 
 Won't
