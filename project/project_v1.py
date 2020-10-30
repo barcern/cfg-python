@@ -28,13 +28,14 @@ def get_dog_detail(breed):
 
 def format_dog_detail(data_dog_detail):
     """Return detailed breed information in a user-friendly format"""
-    weight = f"Weight is "
-    "{data_dog_detail['weight']['metric']} kg."
-    height = f"Height is "
-    "{data_dog_detail['height']['metric']} cm."
-    message = f"Please see some details about {data_dog_detail['name']}:"
+    data = data_dog_detail
+    weight = f"Weight is {data[0]['weight']['metric']} kg."
+    height = f"Height is {data[0]['height']['metric']} cm."
+    message = f"Here are some facts about {data[0]['name']}:"
     message += f"\n\t- {weight} \n\t- {height}"
-    
+    return message
+
+
 current_data = data
 dog_list = []
 dog_list_old = []
@@ -52,7 +53,7 @@ while flag:
     if user_category in categories:
         # If user input is valid, find user input for the category
         user_selection = input(f"What {user_category} would you like your "
-                               "dog to be? ")
+                               "dog to be? ").title()
         for dog in current_data:
             try: 
                 dog[user_category]
@@ -65,11 +66,16 @@ while flag:
         user_dog_detail = input("Would you like to learn more about any of "
                                 "the dogs? y/n ")
         if user_dog_detail == 'y':
+            flag_dog_detail = True
+        while flag_dog_detail == True:
             user_breed = input("Which breed would you like to "
                                            "learn more about? ").title()
             dog_detail = get_dog_detail(user_breed)
-            print(dog_detail)
-            #print(format_dog_detail(dog_detail))
+            print(format_dog_detail(dog_detail))
+            user_dog_detail = input("Would you like to learn more about any "
+                                "other dogs? y/n ")
+            if user_dog_detail == 'n':
+                flag_dog_detail = False
     
     else:
         print("I'm sorry but we don't recognise this category.")
