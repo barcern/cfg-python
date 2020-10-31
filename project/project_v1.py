@@ -14,7 +14,7 @@ data = json.loads(response.content)
 def user_choose_category():
     """User input to choose a category."""
     user_category = input("Which category would you like to consider? "
-                          "weight / height / breed_group / "
+                          "breed_group / "
                           "temperament ").lower()
     return user_category
 
@@ -99,13 +99,13 @@ def show_options(dog_list, user_category):
     """Ask the user if they would like to see available options
     and show options if chosen.
     """
+    options = list_options(dog_list, user_category)
     user_question = input("Would you like to see all available options? y/n ")
     if user_question == 'y':
-        options = list_options(dog_list, user_category)
         print(options)
-        return options
     else:
-        pass
+        print("") 
+    return options
 
 def user_choose_value():
     """Prompt user to select a charasteric value."""
@@ -132,6 +132,9 @@ def check_validity_user_choice(value_list, user_choice):
 # {'weight': {'imperial': '4 - 7', 'metric': '2 - 3'}, 'height': {'imperial': '8 - 9', 'metric': '20 - 23'}, 'id': 264, 'name': 'Yorkshire Terrier', 'bred_for': 'Small vermin hunting', 'breed_group': 'Toy', 'life_span': '12 - 16 years', 'temperament': 'Bold, Independent, Confident, Intelligent, Courageous'}]
         
 # check_validity_dog_detail(test_data, 'temperament')
+    
+# test_date = [{'weight': {'imperial': '44 - 66', 'metric': '20 - 30'}, 'height': {'imperial': '30', 'metric': '76'}, 'id': 3, 'name': 'African Hunting Dog', 'bred_for': 'A wild pack animal', 'life_span': '11 years', 'temperament': 'Wild, Hardworking, Dutiful', 'origin': ''}]
+# format_dog_detail(test_date)
 
 current_data = data
 #print(current_data)
@@ -148,7 +151,7 @@ while flag:
     flag_category = check_validity_user_choice(categories, user_category)
     if flag_category:
         # Allow user to view available options
-        options = show_options(current_data, user_category)        
+        options = show_options(current_data, user_category)  
         # If user input is valid, find user input for the category
         user_choice = user_choose_value()
         # Check whether the user has chosen a valid option
@@ -162,6 +165,14 @@ while flag:
                 if dog[user_category].find(user_choice) != -1:
                     print(dog['name'])
                     dog_list.append(dog)
+        # If there is only one dog available, this is the perfect match
+        if len(dog_list) == 1:
+            print("Good news, we have found your perfect match!")
+            # Add in here API call for dog pic
+            print(format_dog_detail(dog_list))
+            flag = False
+            break
+        print(f"We have found {len(dog_list)} matches.")
         user_dog_detail = input("Would you like to learn more about any of "
                                 "the dogs? y/n ")
         if user_dog_detail == 'y':
@@ -178,15 +189,7 @@ while flag:
             if user_dog_detail == 'n':
                 flag_dog_detail = False   
     else:
-        print("Sorry, we do not recognise this category.")
-        
-    # If there is only one dog available, this is the perfect match
-    if len(dog_list) == 1:
-        print("Good news, we have found your perfect match!")
-        # Add in here API call for dog pic
-        flag = False
-        break
-    print(f"We have found {len(dog_list)} matches.")
+        print("Sorry, we do not recognise this category.")    
     user_continue = input("Would you like to continue with your search? y/n ")
     if user_continue == "n":
         flag = False
