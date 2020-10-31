@@ -1,7 +1,7 @@
 Dog Recommendation App
 Must
 - ask user for key indicators e.g. height
-- make an API call based on the chosen indicators
+- make an API call based on the breed - done
 - return a list of suitable breeds
 - hints for user input
 
