@@ -12,7 +12,7 @@ print(response.status_code)
 data = json.loads(response.content)
 
 def user_choose_category():
-    """User input to choose a category"""
+    """User input to choose a category."""
     user_category = input("Which category would you like to consider? "
                           "weight / height / breed_group / "
                           "temperament ").lower()
@@ -20,7 +20,7 @@ def user_choose_category():
 
 def get_dog_detail(breed):
     """Function to pull data for a specific breed from the API based on
-    the breed's name
+    the breed's name.
     """
     endpoint_dog_detail = "https://api.thedogapi.com/v1/breeds/search"
     query_params_dog_detail = {
@@ -32,18 +32,51 @@ def get_dog_detail(breed):
     data_dog_detail = json.loads(response_dog_detail.content)
     return data_dog_detail
 
-def format_dog_detail(data_dog_detail):
-    """Return detailed breed information in a user-friendly format"""
-    data = data_dog_detail
-    weight = f"Weight is {data[0]['weight']['metric']} kg."
-    height = f"Height is {data[0]['height']['metric']} cm."
+def check_validity_dog_detail_num(data, key):
+    """Check whether a key is present in the dog's dictionary and 
+    return an appropriate response.
+    This function is intended for weight and height categories only.
+    """
+    try: 
+        val = data[0][key]['metric']
+    except KeyError:
+        outcome = f"{key.title()} is not available."
+    else:
+        if key == 'weight':
+            outcome = f"{key.title()} is {val} kg."
+        else:
+            outcome = f"{key.title()} is {val} cm."
+    return outcome
+
+def check_validity_dog_detail_string(data, key):
+    """Check whether a key is present in the dog's dictionary and 
+    return an appropriate response.
+    This function is intended for all keys except for weight and height.
+    """
+    try: 
+        val = data[0][key]
+    except KeyError:
+        outcome = f"{key.title()} is not available."
+    else:
+        outcome = f"{key.title()} is {val}."
+    return outcome
+
+def format_dog_detail(data):
+    """Return detailed breed information in a user-friendly format.""" 
+    weight = check_validity_dog_detail_num(data, 'weight')
+    height = check_validity_dog_detail_num(data, 'height')
+    bred = check_validity_dog_detail_string(data, 'bred_for')
+    group = check_validity_dog_detail_string(data, 'breed_group')
+    life_span = check_validity_dog_detail_string(data, 'life_span')
+    temperament = check_validity_dog_detail_string(data, 'temperament')
     message = f"Here are some facts about {data[0]['name']}:"
-    message += f"\n\t- {weight} \n\t- {height}"
+    message += f"\n\t- {weight} \n\t- {height} \n\t- {bred} \n\t- {group}"
+    message += f"\n\t- {life_span} \n\t- {temperament}"
     return message
 
 def list_options(dog_list, user_category):
     """Create a list of available options so that users can choose a 
-    characteristic which is available
+    characteristic which is available.
     """
     options = []
     for dog in dog_list:
@@ -64,7 +97,7 @@ def list_options(dog_list, user_category):
 
 def show_options(dog_list, user_category):
     """Ask the user if they would like to see available options
-    and show options if chosen
+    and show options if chosen.
     """
     user_question = input("Would you like to see all available options? y/n ")
     if user_question == 'y':
@@ -73,6 +106,21 @@ def show_options(dog_list, user_category):
         return options
     else:
         pass
+
+def user_choose_value():
+    """Prompt user to select a charasteric value."""
+    user_value = input(f"What {user_category} would you like your "
+                               "dog to be? ").title()
+    return user_value
+    
+def check_validity_user_choice(value_list, user_choice):
+    """Check whether the user has picked out of the available options."""
+    if user_choice in value_list:
+        flag_choice = True
+    else:
+        flag_choice = False
+    return flag_choice
+    
         
 # test_data = [{'weight': {'imperial': '15 - 22', 'metric': '7 - 10'}, 'height': {'imperial': '10 - 11', 'metric': '25 - 28'}, 'id': 256, 'name': 'West Highland White Terrier', 'bred_for': 'Fox, badger, vermin hunting', 'breed_group': 'Terrier', 'life_span': '15 - 20 years', 'temperament': 'Hardy, Friendly, Alert, Independent, Gay, Active, Courageous'},
 # {'weight': {'imperial': '25 - 35', 'metric': '11 - 16'}, 'height': {'imperial': '18 - 22', 'metric': '46 - 56'}, 'id': 257, 'name': 'Whippet', 'bred_for': 'Coursing, racing', 'breed_group': 'Hound', 'life_span': '12 - 15 years', 'temperament': 'Friendly, Affectionate, Lively, Gentle, Intelligent, Quiet'},
@@ -83,7 +131,7 @@ def show_options(dog_list, user_category):
 # {'weight': {'imperial': '9 - 31', 'metric': '4 - 14'}, 'height': {'imperial': '10 - 23', 'metric': '25 - 58'}, 'id': 262, 'name': 'Xoloitzcuintli', 'breed_group': 'Non-Sporting', 'life_span': '12 - 14 years', 'temperament': 'Cheerful, Alert, Companionable, Intelligent, Protective, Calm'},
 # {'weight': {'imperial': '4 - 7', 'metric': '2 - 3'}, 'height': {'imperial': '8 - 9', 'metric': '20 - 23'}, 'id': 264, 'name': 'Yorkshire Terrier', 'bred_for': 'Small vermin hunting', 'breed_group': 'Toy', 'life_span': '12 - 16 years', 'temperament': 'Bold, Independent, Confident, Intelligent, Courageous'}]
         
-# show_options(test_data, 'temperament')
+# check_validity_dog_detail(test_data, 'temperament')
 
 current_data = data
 #print(current_data)
@@ -97,19 +145,21 @@ while flag:
     # User input to choose a category
     user_category = user_choose_category()
     # Check whether user input is recognised
-    if user_category in categories:
+    flag_category = check_validity_user_choice(categories, user_category)
+    if flag_category:
         # Allow user to view available options
         options = show_options(current_data, user_category)        
         # If user input is valid, find user input for the category
-        user_selection = input(f"What {user_category} would you like your "
-                               "dog to be? ").title()
+        user_choice = user_choose_value()
+        # Check whether the user has chosen a valid option
+        flag_choice = check_validity_user_choice(options, user_choice)
         for dog in current_data:
             try: 
                 dog[user_category]
             except KeyError:
                 pass
             else:
-                if dog[user_category].find(user_selection) != -1:
+                if dog[user_category].find(user_choice) != -1:
                     print(dog['name'])
                     dog_list.append(dog)
         user_dog_detail = input("Would you like to learn more about any of "
@@ -126,10 +176,9 @@ while flag:
             user_dog_detail = input("Would you like to learn more about any "
                                 "other dogs? y/n ")
             if user_dog_detail == 'n':
-                flag_dog_detail = False
-    
+                flag_dog_detail = False   
     else:
-        print("I'm sorry but we don't recognise this category.")
+        print("Sorry, we do not recognise this category.")
         
     # If there is only one dog available, this is the perfect match
     if len(dog_list) == 1:
@@ -150,7 +199,4 @@ while flag:
                 print(dog['name'])
     else:
         current_data = dog_list
-# I might want the dog list to store         
-print(dog_list)
-
         
