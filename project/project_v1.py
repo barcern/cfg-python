@@ -18,23 +18,23 @@ def user_choose_category():
                           "temperament ").lower()
     return user_category
 
-def get_dog_detail(breed):
+def get_breed_detail(breed):
     """Function to pull data for a specific breed from the API based on
     the breed's name.
     """
-    endpoint_dog_detail = "https://api.thedogapi.com/v1/breeds/search"
-    query_params_dog_detail = {
+    endpoint_breed_detail = "https://api.thedogapi.com/v1/breeds/search"
+    query_params_breed_detail = {
         'api-key' : '42131d49-f92a-441c-8f40-4ade8c01a4ee',
         'q' : breed,
     }
-    response_dog_detail = requests.get(endpoint_dog_detail, 
-                                       params=query_params_dog_detail)    
-    data_dog_detail = json.loads(response_dog_detail.content)
-    if len(data_dog_detail) == 0:
-        data_dog_detail = 'false'
-    return data_dog_detail
+    response_breed_detail = requests.get(endpoint_breed_detail, 
+                                       params=query_params_breed_detail)    
+    data_breed_detail = json.loads(response_breed_detail.content)
+    if len(data_breed_detail) == 0:
+        data_breed_detail = 'false'
+    return data_breed_detail
 
-def check_validity_dog_detail_num(data, key):
+def check_validity_breed_detail_num(data, key):
     """Check whether a key is present in the dog's dictionary and 
     return an appropriate response.
     This function is intended for weight and height categories only.
@@ -50,7 +50,7 @@ def check_validity_dog_detail_num(data, key):
             outcome = f"{key.title()} is {val} cm."
     return outcome
 
-def check_validity_dog_detail_string(data, key):
+def check_validity_breed_detail_string(data, key):
     """Check whether a key is present in the dog's dictionary and 
     return an appropriate response.
     This function is intended for all keys except for weight and height.
@@ -63,14 +63,14 @@ def check_validity_dog_detail_string(data, key):
         outcome = f"{key.title()} is {val}."
     return outcome
 
-def format_dog_detail(data):
+def format_breed_detail(data):
     """Return detailed breed information in a user-friendly format.""" 
-    weight = check_validity_dog_detail_num(data, 'weight')
-    height = check_validity_dog_detail_num(data, 'height')
-    bred = check_validity_dog_detail_string(data, 'bred_for')
-    group = check_validity_dog_detail_string(data, 'breed_group')
-    life_span = check_validity_dog_detail_string(data, 'life_span')
-    temperament = check_validity_dog_detail_string(data, 'temperament')
+    weight = check_validity_breed_detail_num(data, 'weight')
+    height = check_validity_breed_detail_num(data, 'height')
+    bred = check_validity_breed_detail_string(data, 'bred_for')
+    group = check_validity_breed_detail_string(data, 'breed_group')
+    life_span = check_validity_breed_detail_string(data, 'life_span')
+    temperament = check_validity_breed_detail_string(data, 'temperament')
     message = f"Here are some facts about {data[0]['name']}:"
     message += f"\n\t- {weight} \n\t- {height} \n\t- {bred} \n\t- {group}"
     message += f"\n\t- {life_span} \n\t- {temperament}"
@@ -142,15 +142,15 @@ def user_choose_yn(question):
         flag = check_validity_user_yn(user_input)
     return user_input
 
-def check_validity_user_yninv(user_choice):
-    """Check whether the user has selected yes or no."""
-    if user_choice == 'y':
-        flag_choice = 'true'
-    elif user_choice == 'n':
-        flag_choice = 'false'
-    else:
-        flag_choice = 'invalid'
-    return flag_choice
+# def check_validity_user_yninv(user_choice):
+#     """Check whether the user has selected yes or no."""
+#     if user_choice == 'y':
+#         flag_choice = 'true'
+#     elif user_choice == 'n':
+#         flag_choice = 'false'
+#     else:
+#         flag_choice = 'invalid'
+#     return flag_choice
 
 def end_search_early(dog_list):
     """Carry out final tasks when user chooses to end search early."""
@@ -164,15 +164,12 @@ def end_search_early(dog_list):
             print("- " + dog['name'])
 
 current_data = data
-#print(current_data)
-dog_list = []
-dog_list_old = []
 flag = True
 categories = ['weight', 'height', 'breed_group', 'temperament']
 
 print("Welcome to my dog breed recommendation app!")
 while flag:
-    dog_list = []
+    breed_list = []
     # User input to choose a category
     user_category = user_choose_category()
     # Check whether user input is recognised
@@ -193,37 +190,31 @@ while flag:
                 else:
                     if dog[user_category].find(user_choice) != -1:
                         print(dog['name'])
-                        dog_list.append(dog)
+                        breed_list.append(dog)
             # If there is only one dog available, this is the perfect match
-            if len(dog_list) == 1:
+            if len(breed_list) == 1:
                 print("Good news, we have found your perfect match!")
                 # Add in here API call for dog pic
-                print(format_dog_detail(dog_list))
+                print(format_breed_detail(breed_list))
                 flag = False
                 break
-            print(f"We have found {len(dog_list)} matches.")
-            user_dog_detail = input("Would you like to learn more about any of "
-                                    "the dogs? y/n ")
-            flag_dog_detail = check_validity_user_yninv(user_dog_detail)
-            # if user_dog_detail == 'y':
-            #     flag_dog_detail = True
-            # else:
-            #     flag_dog_detail = False
-            while flag_dog_detail == 'true':
+            print(f"We have found {len(breed_list)} matches.")
+            
+            # Breed detail - user to provide y/n answer
+            breed_yn_question = "Would you like to learn more about any of "
+            breed_yn_question += "the dogs? y/n "
+            user_input_breed_yn = user_choose_yn(breed_yn_question)
+            while user_input_breed_yn == 'y':
                 user_breed = input("Which breed would you like to "
                                                "learn more about? ").title()
-                dog_detail = get_dog_detail(user_breed)
-                if dog_detail == 'false':
+                breed_detail = get_breed_detail(user_breed)
+                if breed_detail == 'false':
                     print("Sorry, we do not recognise your search.")
                 else:
-                    print(format_dog_detail(dog_detail))
-                user_dog_detail = input("Would you like to learn more about any "
-                                    "other dogs? y/n ")
-                if user_dog_detail == 'n':
-                    flag_dog_detail = False   
-            if flag_dog_detail == 'invalid':
-                print("Sorry, we do not recognise this category.")
-            current_data = dog_list
+                    print(format_breed_detail(breed_detail))
+                user_input_breed_yn = user_choose_yn(breed_yn_question)
+                
+            current_data = breed_list
         else:
             print("Sorry, we do not recognise this category.")
     else:
@@ -236,7 +227,7 @@ while flag:
     # Ending search before finding the perfect match
     if user_input_next_search == "n":
         flag = False
-        end_search_early(dog_list)
+        end_search_early(breed_list)
 
         
 # test_data = [{'weight': {'imperial': '15 - 22', 'metric': '7 - 10'}, 'height': {'imperial': '10 - 11', 'metric': '25 - 28'}, 'id': 256, 'name': 'West Highland White Terrier', 'bred_for': 'Fox, badger, vermin hunting', 'breed_group': 'Terrier', 'life_span': '15 - 20 years', 'temperament': 'Hardy, Friendly, Alert, Independent, Gay, Active, Courageous'},
