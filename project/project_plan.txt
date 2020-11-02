@@ -2,7 +2,7 @@ Dog Recommendation App
 Must
 - ask user for key indicators e.g. height
 - make an API call based on the breed - done
-- return a list of suitable breeds
+- return a list of suitable breeds - done
 - hints for user input
 
 Should
@@ -12,8 +12,16 @@ Should
 Could
 - make an API call to include a picture of the dogs
 - explore data (e.g. number of breeds, biggest dog, smallest dog)
-- give user all info about a dog
+- give user all info about a dog - done
 - option to start a new search
-- option to see available options e.g. for temperament
+- option to see available options e.g. for temperament - done
 
 Won't
+
+Outstanding tasks:
+- tidy up code
+- ensure code cannot be broken by user input
+- API calls for pics
+- save to a file
+- extend to height and weight
+- extend to life span

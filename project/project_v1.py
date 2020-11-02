@@ -30,6 +30,8 @@ def get_dog_detail(breed):
     response_dog_detail = requests.get(endpoint_dog_detail, 
                                        params=query_params_dog_detail)    
     data_dog_detail = json.loads(response_dog_detail.content)
+    if len(data_dog_detail) == 0:
+        data_dog_detail = 'false'
     return data_dog_detail
 
 def check_validity_dog_detail_num(data, key):
@@ -121,20 +123,45 @@ def check_validity_user_choice(value_list, user_choice):
         flag_choice = False
     return flag_choice
     
-        
-# test_data = [{'weight': {'imperial': '15 - 22', 'metric': '7 - 10'}, 'height': {'imperial': '10 - 11', 'metric': '25 - 28'}, 'id': 256, 'name': 'West Highland White Terrier', 'bred_for': 'Fox, badger, vermin hunting', 'breed_group': 'Terrier', 'life_span': '15 - 20 years', 'temperament': 'Hardy, Friendly, Alert, Independent, Gay, Active, Courageous'},
-# {'weight': {'imperial': '25 - 35', 'metric': '11 - 16'}, 'height': {'imperial': '18 - 22', 'metric': '46 - 56'}, 'id': 257, 'name': 'Whippet', 'bred_for': 'Coursing, racing', 'breed_group': 'Hound', 'life_span': '12 - 15 years', 'temperament': 'Friendly, Affectionate, Lively, Gentle, Intelligent, Quiet'},
-# {'weight': {'imperial': '60 - 85', 'metric': '27 - 39'}, 'height': {'imperial': '22 - 25', 'metric': '56 - 64'}, 'id': 258, 'name': 'White Shepherd', 'life_span': '12 – 14 years', 'temperament': 'Self-confidence, Aloof, Fearless, Alert, Companionable, Eager'},
-# {'weight': {'imperial': '15 - 19', 'metric': '7 - 9'}, 'height': {'imperial': '13 - 16', 'metric': '33 - 41'}, 'id': 259, 'name': 'Wire Fox Terrier', 'bred_for': 'Vermin hunting, fox bolting', 'life_span': '13 – 14 years', 'history': ' England', 'temperament': 'Fearless, Friendly, Bold, Keen, Alert, Quick'},
-# {'weight': {'imperial': '45 - 70', 'metric': '20 - 32'}, 'height': {'imperial': '20 - 24', 'metric': '51 - 61'}, 'id': 260, 'name': 'Wirehaired Pointing Griffon', 'bred_for': 'Gundog, "swamp-tromping", Flushing, pointing, and retrieving water fowl & game birds', 'breed_group': 'Sporting', 'life_span': '12 - 14 years', 'temperament': 'Loyal, Gentle, Vigilant, Trainable, Proud'},
-# {'weight': {'imperial': '45 - 65', 'metric': '20 - 29'}, 'height': {'imperial': '21.5 - 25', 'metric': '55 - 64'}, 'id': 261, 'name': 'Wirehaired Vizsla', 'breed_group': 'Sporting', 'life_span': '12 - 14 years'},
-# {'weight': {'imperial': '9 - 31', 'metric': '4 - 14'}, 'height': {'imperial': '10 - 23', 'metric': '25 - 58'}, 'id': 262, 'name': 'Xoloitzcuintli', 'breed_group': 'Non-Sporting', 'life_span': '12 - 14 years', 'temperament': 'Cheerful, Alert, Companionable, Intelligent, Protective, Calm'},
-# {'weight': {'imperial': '4 - 7', 'metric': '2 - 3'}, 'height': {'imperial': '8 - 9', 'metric': '20 - 23'}, 'id': 264, 'name': 'Yorkshire Terrier', 'bred_for': 'Small vermin hunting', 'breed_group': 'Toy', 'life_span': '12 - 16 years', 'temperament': 'Bold, Independent, Confident, Intelligent, Courageous'}]
-        
-# check_validity_dog_detail(test_data, 'temperament')
-    
-# test_date = [{'weight': {'imperial': '44 - 66', 'metric': '20 - 30'}, 'height': {'imperial': '30', 'metric': '76'}, 'id': 3, 'name': 'African Hunting Dog', 'bred_for': 'A wild pack animal', 'life_span': '11 years', 'temperament': 'Wild, Hardworking, Dutiful', 'origin': ''}]
-# format_dog_detail(test_date)
+def check_validity_user_yn(user_choice):
+    """Check whether the user has selected yes or no."""
+    if user_choice == 'y':
+        flag_choice = False
+    elif user_choice == 'n':
+        flag_choice = False
+    else:
+        print("Sorry, we do not recognise your input.")
+        flag_choice = True
+    return flag_choice
+
+def user_choose_yn(question):
+    """Prompt user to choose a yes-no option."""
+    flag = True
+    while flag:
+        user_input = input(question)
+        flag = check_validity_user_yn(user_input)
+    return user_input
+
+def check_validity_user_yninv(user_choice):
+    """Check whether the user has selected yes or no."""
+    if user_choice == 'y':
+        flag_choice = 'true'
+    elif user_choice == 'n':
+        flag_choice = 'false'
+    else:
+        flag_choice = 'invalid'
+    return flag_choice
+
+def end_search_early(dog_list):
+    """Carry out final tasks when user chooses to end search early."""
+    if len(dog_list) == 0:
+        print("We are sorry to say that we haven't found your perfect "
+              "match. Keep searching, your perfect dog is out there!")
+    else:
+        print("We haven't found your perfect match yet, but we believe that "
+              "the following breeds would suit you well:")
+        for dog in dog_list:
+            print("- " + dog['name'])
 
 current_data = data
 #print(current_data)
@@ -142,6 +169,7 @@ dog_list = []
 dog_list_old = []
 flag = True
 categories = ['weight', 'height', 'breed_group', 'temperament']
+
 print("Welcome to my dog breed recommendation app!")
 while flag:
     dog_list = []
@@ -156,50 +184,72 @@ while flag:
         user_choice = user_choose_value()
         # Check whether the user has chosen a valid option
         flag_choice = check_validity_user_choice(options, user_choice)
-        for dog in current_data:
-            try: 
-                dog[user_category]
-            except KeyError:
-                pass
-            else:
-                if dog[user_category].find(user_choice) != -1:
-                    print(dog['name'])
-                    dog_list.append(dog)
-        # If there is only one dog available, this is the perfect match
-        if len(dog_list) == 1:
-            print("Good news, we have found your perfect match!")
-            # Add in here API call for dog pic
-            print(format_dog_detail(dog_list))
-            flag = False
-            break
-        print(f"We have found {len(dog_list)} matches.")
-        user_dog_detail = input("Would you like to learn more about any of "
-                                "the dogs? y/n ")
-        if user_dog_detail == 'y':
-            flag_dog_detail = True
+        if flag_choice:
+            for dog in current_data:
+                try: 
+                    dog[user_category]
+                except KeyError:
+                    pass
+                else:
+                    if dog[user_category].find(user_choice) != -1:
+                        print(dog['name'])
+                        dog_list.append(dog)
+            # If there is only one dog available, this is the perfect match
+            if len(dog_list) == 1:
+                print("Good news, we have found your perfect match!")
+                # Add in here API call for dog pic
+                print(format_dog_detail(dog_list))
+                flag = False
+                break
+            print(f"We have found {len(dog_list)} matches.")
+            user_dog_detail = input("Would you like to learn more about any of "
+                                    "the dogs? y/n ")
+            flag_dog_detail = check_validity_user_yninv(user_dog_detail)
+            # if user_dog_detail == 'y':
+            #     flag_dog_detail = True
+            # else:
+            #     flag_dog_detail = False
+            while flag_dog_detail == 'true':
+                user_breed = input("Which breed would you like to "
+                                               "learn more about? ").title()
+                dog_detail = get_dog_detail(user_breed)
+                if dog_detail == 'false':
+                    print("Sorry, we do not recognise your search.")
+                else:
+                    print(format_dog_detail(dog_detail))
+                user_dog_detail = input("Would you like to learn more about any "
+                                    "other dogs? y/n ")
+                if user_dog_detail == 'n':
+                    flag_dog_detail = False   
+            if flag_dog_detail == 'invalid':
+                print("Sorry, we do not recognise this category.")
+            current_data = dog_list
         else:
-            flag_dog_detail = False
-        while flag_dog_detail == True:
-            user_breed = input("Which breed would you like to "
-                                           "learn more about? ").title()
-            dog_detail = get_dog_detail(user_breed)
-            print(format_dog_detail(dog_detail))
-            user_dog_detail = input("Would you like to learn more about any "
-                                "other dogs? y/n ")
-            if user_dog_detail == 'n':
-                flag_dog_detail = False   
+            print("Sorry, we do not recognise this category.")
     else:
         print("Sorry, we do not recognise this category.")    
-    user_continue = input("Would you like to continue with your search? y/n ")
-    if user_continue == "n":
-        flag = False
-        if len(dog_list) == 0:
-            print("We are sorry to say that we haven't found your perfect "
-                  "match. Keep searching, your perfect dog is out there!")
-        else:
-            print("We have matched you with these dogs breeds:")
-            for dog in dog_list:
-                print(dog['name'])
-    else:
-        current_data = dog_list
+    
+    # Next search - user to provide y/n answer 
+    next_search_question = "Would you like to continue with your search? y/n "
+    user_input_next_search = user_choose_yn(next_search_question)
         
+    # Ending search before finding the perfect match
+    if user_input_next_search == "n":
+        flag = False
+        end_search_early(dog_list)
+
+        
+# test_data = [{'weight': {'imperial': '15 - 22', 'metric': '7 - 10'}, 'height': {'imperial': '10 - 11', 'metric': '25 - 28'}, 'id': 256, 'name': 'West Highland White Terrier', 'bred_for': 'Fox, badger, vermin hunting', 'breed_group': 'Terrier', 'life_span': '15 - 20 years', 'temperament': 'Hardy, Friendly, Alert, Independent, Gay, Active, Courageous'},
+# {'weight': {'imperial': '25 - 35', 'metric': '11 - 16'}, 'height': {'imperial': '18 - 22', 'metric': '46 - 56'}, 'id': 257, 'name': 'Whippet', 'bred_for': 'Coursing, racing', 'breed_group': 'Hound', 'life_span': '12 - 15 years', 'temperament': 'Friendly, Affectionate, Lively, Gentle, Intelligent, Quiet'},
+# {'weight': {'imperial': '60 - 85', 'metric': '27 - 39'}, 'height': {'imperial': '22 - 25', 'metric': '56 - 64'}, 'id': 258, 'name': 'White Shepherd', 'life_span': '12 – 14 years', 'temperament': 'Self-confidence, Aloof, Fearless, Alert, Companionable, Eager'},
+# {'weight': {'imperial': '15 - 19', 'metric': '7 - 9'}, 'height': {'imperial': '13 - 16', 'metric': '33 - 41'}, 'id': 259, 'name': 'Wire Fox Terrier', 'bred_for': 'Vermin hunting, fox bolting', 'life_span': '13 – 14 years', 'history': ' England', 'temperament': 'Fearless, Friendly, Bold, Keen, Alert, Quick'},
+# {'weight': {'imperial': '45 - 70', 'metric': '20 - 32'}, 'height': {'imperial': '20 - 24', 'metric': '51 - 61'}, 'id': 260, 'name': 'Wirehaired Pointing Griffon', 'bred_for': 'Gundog, "swamp-tromping", Flushing, pointing, and retrieving water fowl & game birds', 'breed_group': 'Sporting', 'life_span': '12 - 14 years', 'temperament': 'Loyal, Gentle, Vigilant, Trainable, Proud'},
+# {'weight': {'imperial': '45 - 65', 'metric': '20 - 29'}, 'height': {'imperial': '21.5 - 25', 'metric': '55 - 64'}, 'id': 261, 'name': 'Wirehaired Vizsla', 'breed_group': 'Sporting', 'life_span': '12 - 14 years'},
+# {'weight': {'imperial': '9 - 31', 'metric': '4 - 14'}, 'height': {'imperial': '10 - 23', 'metric': '25 - 58'}, 'id': 262, 'name': 'Xoloitzcuintli', 'breed_group': 'Non-Sporting', 'life_span': '12 - 14 years', 'temperament': 'Cheerful, Alert, Companionable, Intelligent, Protective, Calm'},
+# {'weight': {'imperial': '4 - 7', 'metric': '2 - 3'}, 'height': {'imperial': '8 - 9', 'metric': '20 - 23'}, 'id': 264, 'name': 'Yorkshire Terrier', 'bred_for': 'Small vermin hunting', 'breed_group': 'Toy', 'life_span': '12 - 16 years', 'temperament': 'Bold, Independent, Confident, Intelligent, Courageous'}]
+        
+# check_validity_dog_detail(test_data, 'temperament')
+    
+# test_date = [{'weight': {'imperial': '44 - 66', 'metric': '20 - 30'}, 'height': {'imperial': '30', 'metric': '76'}, 'id': 3, 'name': 'African Hunting Dog', 'bred_for': 'A wild pack animal', 'life_span': '11 years', 'temperament': 'Wild, Hardworking, Dutiful', 'origin': ''}]
+# format_dog_detail(test_date)
+                
