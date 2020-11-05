@@ -5,12 +5,12 @@ Must
 - done - make an API call based on the breed
 - done - return a list of suitable breeds
 - done - hints for user input
-- replace repeated strings with variable
+- done - replace repeated strings with variable
 
 Should
 - save results to a file
-- check for incorrect input
-- ensure code cannot be broken by user input
+- done - check for incorrect input
+- done - ensure code cannot be broken by user input
 - done - extend to height and weight > use size
 - done - remove first empty string from options
 - refine user flow

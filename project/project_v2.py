@@ -42,19 +42,20 @@ for breed in data:
 # Convert everything to lower case
 for breed in data:
     for key in breed:
-        try:
-            value = str(breed[key])
-        except AttributeError:
-            pass
-        else:
-            breed.update({key : str(breed[key]).lower()})
+        if key not in ['weight', 'height']:
+            try:
+                value = str(breed[key])
+            except AttributeError:
+                pass
+            else:
+                breed.update({key : str(breed[key]).lower()})
     
-def user_choose_category():
-    """User input to choose a category."""
-    user_category = input("Which category would you like to consider? "
-                          "breed_group / "
-                          "temperament ").lower()
-    return user_category
+# def user_choose_category():
+#     """User input to choose a category."""
+#     user_category = input("Which category would you like to consider? "
+#                           "breed_group / "
+#                           "temperament ").lower()
+#     return user_category
 
 def get_breed_detail(breed):
     """Function to pull data for a specific breed from the API based on
@@ -109,7 +110,7 @@ def format_breed_detail(data):
     group = check_validity_breed_detail_string(data, 'breed_group')
     life_span = check_validity_breed_detail_string(data, 'life_span')
     temperament = check_validity_breed_detail_string(data, 'temperament')
-    message = f"Here are some facts about {data[0]['name']}:"
+    message = f"Here are some facts about {data[0]['name'].title()}:"
     message += f"\n\t- {weight} \n\t- {height} \n\t- {bred} \n\t- {group}"
     message += f"\n\t- {life_span} \n\t- {temperament}"
     return message
@@ -198,7 +199,7 @@ def end_search_early(dog_list):
         print("We haven't found your perfect match yet, but we believe that "
               "the following breeds would suit you well:")
         for dog in dog_list:
-            print("- " + dog['name'])
+            print("- " + dog['name'].title())
 
 breed_list = data
 flag = True
@@ -206,8 +207,6 @@ categories = ['size', 'breed_group', 'temperament']
 
 print("Welcome to my dog breed recommendation programme!")
 while flag:
-    # User input to choose a category
-    #user_category = user_choose_category()
     # Deal with size
     size_question = "What size dog would you like? "
     breed_list = run_search(size_question, 'size', breed_list)
@@ -219,9 +218,33 @@ while flag:
     # Deal with temperament
     temperament_question = "What temperament should your dog have? "
     breed_list = run_search(temperament_question, 'temperament', breed_list)
-    print(breed_list)
     
-    flag = False
+    # Print available information
+    print(f"We have found {len(breed_list)} matches.")
+    
+    next_steps_question = "Would you like to learn more about any of these "
+    next_steps_question += "dogs, refine your search or exit the programme? "
+    next_steps_question += "learn/refine/exit "
+    next_steps_options = ['learn', 'refine', 'exit']
+    user_next_steps = user_input_value(next_steps_question, next_steps_options)
+    
+    while user_next_steps == 'learn':
+        breed_question = "Which breed would you like to learn more about? "
+        breed_options = list_options(breed_list, 'name')
+        user_breed = user_input_value(breed_question, breed_options)
+        breed_detail = get_breed_detail(user_breed)
+        print(format_breed_detail(breed_detail))
+        user_next_steps = user_input_value(next_steps_question, next_steps_options)
+    if user_next_steps == 'refine':
+        pass
+    elif user_next_steps == 'exit':    
+        if len(breed_list) == 1:
+            print("Good news, we have found your perfect match!")
+        # Add in here API call for dog pic
+            print(format_breed_detail(breed_list))
+        else:
+            end_search_early(breed_list)
+        flag = False
     # Check whether user input is recognised
     #flag_category = check_validity_user_choice(categories, user_category)
     #if flag_category:
@@ -232,15 +255,7 @@ while flag:
     # # Check whether the user has chosen a valid option
     # flag_choice = check_validity_user_choice(options, user_choice)
     # if flag_choice:
-    #     for dog in current_data:
-    #         try: 
-    #             dog[user_category]
-    #         except KeyError:
-    #             pass
-    #         else:
-    #             if dog[user_category].find(user_choice) != -1:
-    #                 print(dog['name'])
-    #                 breed_list.append(dog)
+
     #     # If there is only one dog available, this is the perfect match
     #     if len(breed_list) == 1:
     #         print("Good news, we have found your perfect match!")
@@ -296,3 +311,6 @@ while flag:
   
 # for dog in data:
 #     print(dog['size'])
+    
+#print(data)
+#print(data[0]['weight']['metric'])
