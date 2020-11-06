@@ -8,6 +8,7 @@ Created on Tue Nov  3 18:39:32 2020
 
 import requests
 import json
+from datetime import datetime
 
 endpoint = "https://api.thedogapi.com/v1/breeds"
 query_params = {
@@ -104,13 +105,17 @@ def check_validity_breed_detail_string(data, key):
 
 def format_breed_detail(data):
     """Return detailed breed information in a user-friendly format.""" 
+    if len(data) == 1:
+        congrats = "Good news, we have found your perfect match! "
+    else:
+        congrats = ""
     weight = check_validity_breed_detail_num(data, 'weight')
     height = check_validity_breed_detail_num(data, 'height')
     bred = check_validity_breed_detail_string(data, 'bred_for')
     group = check_validity_breed_detail_string(data, 'breed_group')
     life_span = check_validity_breed_detail_string(data, 'life_span')
     temperament = check_validity_breed_detail_string(data, 'temperament')
-    message = f"Here are some facts about {data[0]['name'].title()}:"
+    message = f"{congrats}Here are some facts about {data[0]['name'].title()}:"
     message += f"\n\t- {weight} \n\t- {height} \n\t- {bred} \n\t- {group}"
     message += f"\n\t- {life_span} \n\t- {temperament}"
     return message
@@ -193,13 +198,22 @@ def run_search(question, category, breed_list):
 def end_search_early(dog_list):
     """Carry out final tasks when user chooses to end search early."""
     if len(dog_list) == 0:
-        print("We are sorry to say that we haven't found your perfect "
-              "match. Keep searching, your perfect dog is out there!")
+        message = "We are sorry to say that we haven't found your perfect "
+        message += "match. Keep searching, your perfect dog is out there!"
     else:
-        print("We haven't found your perfect match yet, but we believe that "
-              "the following breeds would suit you well:")
+        message = "We haven't found your perfect match yet, but we believe that "
+        message += "the following breeds would suit you well:"
         for dog in dog_list:
-            print("- " + dog['name'].title())
+            message += "\n\t- " + dog['name'].title()
+    return message
+            
+def save_to_file(final_result):
+    """Save the outcome of the programme to a text file."""
+    now = datetime.now().strftime("%Y%m%d-%H%M")
+    filename = f"{now}-search.txt"
+    with open(filename, "w") as f:
+        f.write(str(final_result))
+    return "Your final result has been saved to a local file."
 
 breed_list = data
 flag = True
@@ -239,11 +253,18 @@ while flag:
         pass
     elif user_next_steps == 'exit':    
         if len(breed_list) == 1:
-            print("Good news, we have found your perfect match!")
         # Add in here API call for dog pic
-            print(format_breed_detail(breed_list))
+            final_result = format_breed_detail(breed_list)
+            print(final_result)
         else:
-            end_search_early(breed_list)
+            final_result = end_search_early(breed_list)
+            print(final_result)
+        print(save_to_file(final_result))
+        # now = datetime.now().strftime("%Y%m%d-%H%M")
+        # filename = f"{now}-search.txt"
+        # with open(filename, "w") as f:
+        #     f.write(str(final_result))
+        # print("Your final result has been saved to a local file.")
         flag = False
     # Check whether user input is recognised
     #flag_category = check_validity_user_choice(categories, user_category)
@@ -314,3 +335,4 @@ while flag:
     
 #print(data)
 #print(data[0]['weight']['metric'])
+#print(datetime.now().strftime("%Y%m%d-%H%M"))

@@ -1,0 +1,7 @@
+Good news, we have found your perfect match! Here are some facts about French Bulldog:
+	- Weight is 13 kg. 
+	- Height is 28 - 30 cm. 
+	- Bred_For is lapdog. 
+	- Breed_Group is non-sporting.
+	- Life_Span is 9 - 11 years. 
+	- Temperament is playful, affectionate, keen, sociable, lively, alert, easygoing, patient, athletic, bright.

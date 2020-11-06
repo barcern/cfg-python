@@ -8,7 +8,7 @@ Must
 - done - replace repeated strings with variable
 
 Should
-- save results to a file
+- done - save results to a file
 - done - check for incorrect input
 - done - ensure code cannot be broken by user input
 - done - extend to height and weight > use size
