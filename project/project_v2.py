@@ -184,9 +184,13 @@ def create_breed_list(data, dict_key, user_input):
                 pass
             else:
                 if breed[dict_key].find(user_input) != -1:
-                    print(breed['name'].title())
                     breed_list.append(breed)
     return breed_list
+
+def show_breeds(breed_list):
+    """Display breeds stored in a breeds list."""
+    for breed in breed_list:
+        print(breed['name'].title())
 
 def run_search(question, category, breed_list):
     """Obtain user input, run search and return a new list."""
@@ -258,16 +262,19 @@ while flag:
     # Deal with size
     size_question = "What size dog would you like? "
     breed_list = run_search(size_question, 'size', breed_list)
+    show_breeds(breed_list)
     print(show_matches(breed_list))
     
     # Deal with breed_group
     breed_group_question = "What breed group would you like? "
     breed_list = run_search(breed_group_question, 'breed_group', breed_list)
+    show_breeds(breed_list)
     print(show_matches(breed_list))
     
     # Deal with temperament
     temperament_question = "What temperament should your dog have? "
     breed_list = run_search(temperament_question, 'temperament', breed_list)
+    show_breeds(breed_list)
     print(show_matches(breed_list))
     
     next_steps_question = "Would you like to learn more about any of these "
@@ -288,7 +295,6 @@ while flag:
         pass
     elif user_next_steps == 'exit' or user_next_steps == 'new':    
         if len(breed_list) == 1:
-        # Add in here API call for dog pic
             final_result = format_breed_detail(breed_list)
             print(final_result)
         else:
