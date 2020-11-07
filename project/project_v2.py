@@ -207,14 +207,43 @@ def end_search_early(dog_list):
             message += "\n\t- " + dog['name'].title()
     return message
             
-def save_to_file(final_result):
+def save_to_file(final_result, now):
     """Save the outcome of the programme to a text file."""
-    now = datetime.now().strftime("%Y%m%d-%H%M")
     filename = f"{now}-search.txt"
     with open(filename, "w") as f:
         f.write(str(final_result))
     return "Your final result has been saved to a local file."
 
+def get_breed_img(breed_id):
+    """Function to pull image of a specific breed from the API based on
+    the breed's id.
+    """
+    endpoint_breed_img = "https://api.thedogapi.com/v1/images/search"
+    query_params_breed_img = {
+        'api-key' : '42131d49-f92a-441c-8f40-4ade8c01a4ee',
+        'breed_id' : breed_id,
+    }
+    response_breed_img = requests.get(endpoint_breed_img, 
+                                       params=query_params_breed_img)    
+    data_breed_img = json.loads(response_breed_img.content)
+    try:
+        data_breed_img_url = data_breed_img[0]['url']
+    except IndexError:
+        data_breed_img_url = None
+    else:
+        return data_breed_img_url
+
+def save_breed_img(breed_name, breed_img_url, now):
+    """Save an image of a breed."""
+    if breed_img_url != None:
+        response_img = requests.get(breed_img_url)
+        breed_img = response_img.content
+        filename = f"{now}-{breed_name}-img.jpg"
+        with open(filename, "wb") as f:
+            f.write(breed_img)
+    else:
+        print("Unfortunately there are no pictures available for this breed.")
+        
 breed_list = data
 flag = True
 categories = ['size', 'breed_group', 'temperament']
@@ -259,12 +288,28 @@ while flag:
         else:
             final_result = end_search_early(breed_list)
             print(final_result)
-        print(save_to_file(final_result))
+        now = datetime.now().strftime("%Y%m%d-%H%M")
+        print(save_to_file(final_result, now))
         # now = datetime.now().strftime("%Y%m%d-%H%M")
         # filename = f"{now}-search.txt"
         # with open(filename, "w") as f:
         #     f.write(str(final_result))
         # print("Your final result has been saved to a local file.")
+        img_yn_question = "Would you like to see a picture of your "
+        img_yn_question += "matched breed(s)? y/n "
+        user_img_yn = user_input_value(img_yn_question, ['y', 'n'])
+        for breed in breed_list:
+            breed_id = breed['id']
+            breed_name = breed['name']
+            breed_img_url = get_breed_img(breed_id)
+            save_breed_img(breed_name, breed_img_url, now)
+
+
+            # match breed name to id
+            # run api call
+            # save pic locally
+            # name file as with search results
+
         flag = False
     # Check whether user input is recognised
     #flag_category = check_validity_user_choice(categories, user_category)
@@ -336,3 +381,8 @@ while flag:
 #print(data)
 #print(data[0]['weight']['metric'])
 #print(datetime.now().strftime("%Y%m%d-%H%M"))
+        
+for breed in breed_list:
+    breed_id = breed['id']
+    print(breed_id)
+print(breed_list)
