@@ -1,0 +1,7 @@
+Good news, we have found your perfect match! Here are some facts about Irish Wolfhound:
+	- Weight is 48 - 82 kg. 
+	- Height is 76 - 89 cm. 
+	- Bred_For is coursing wolves, elk. 
+	- Breed_Group is hound.
+	- Life_Span is 6 - 8 years. 
+	- Temperament is sweet-tempered, loyal, dignified, patient, thoughtful, generous.

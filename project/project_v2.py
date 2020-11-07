@@ -295,14 +295,15 @@ while flag:
         # with open(filename, "w") as f:
         #     f.write(str(final_result))
         # print("Your final result has been saved to a local file.")
-        img_yn_question = "Would you like to see a picture of your "
-        img_yn_question += "matched breed(s)? y/n "
-        user_img_yn = user_input_value(img_yn_question, ['y', 'n'])
-        for breed in breed_list:
-            breed_id = breed['id']
-            breed_name = breed['name']
-            breed_img_url = get_breed_img(breed_id)
-            save_breed_img(breed_name, breed_img_url, now)
+        if len(breed_list) < 5:
+            img_yn_question = "Would you like to see a picture of your "
+            img_yn_question += "matched breed(s)? y/n "
+            user_img_yn = user_input_value(img_yn_question, ['y', 'n'])
+            for breed in breed_list:
+                breed_id = breed['id']
+                breed_name = breed['name']
+                breed_img_url = get_breed_img(breed_id)
+                save_breed_img(breed_name, breed_img_url, now)
 
 
             # match breed name to id
