@@ -1,0 +1,7 @@
+Good news, we have found your perfect match! Here are some facts about Azawakh:
+	- Weight is 15 - 25 kg. 
+	- Height is 58 - 74 cm. 
+	- Bred_For is livestock guardian, hunting. 
+	- Breed_Group is hound.
+	- Life_Span is 10 - 13 years. 
+	- Temperament is aloof, affectionate, attentive, rugged, fierce, refined.

@@ -195,6 +195,11 @@ def run_search(question, category, breed_list):
     breed_list = create_breed_list(breed_list, category, user_category)
     return breed_list
 
+def show_matches(breed_list):
+    """Show how many matches there are."""
+    matches = f"We have found {len(breed_list)} matches."
+    return matches
+
 def end_search_early(dog_list):
     """Carry out final tasks when user chooses to end search early."""
     if len(dog_list) == 0:
@@ -253,22 +258,23 @@ while flag:
     # Deal with size
     size_question = "What size dog would you like? "
     breed_list = run_search(size_question, 'size', breed_list)
+    print(show_matches(breed_list))
     
     # Deal with breed_group
     breed_group_question = "What breed group would you like? "
     breed_list = run_search(breed_group_question, 'breed_group', breed_list)
+    print(show_matches(breed_list))
     
     # Deal with temperament
     temperament_question = "What temperament should your dog have? "
     breed_list = run_search(temperament_question, 'temperament', breed_list)
-    
-    # Print available information
-    print(f"We have found {len(breed_list)} matches.")
+    print(show_matches(breed_list))
     
     next_steps_question = "Would you like to learn more about any of these "
-    next_steps_question += "dogs, refine your search or exit the programme? "
-    next_steps_question += "learn/refine/exit "
-    next_steps_options = ['learn', 'refine', 'exit']
+    next_steps_question += "dogs, refine your search, start a new search or "
+    next_steps_question += "exit the programme? "
+    next_steps_question += "learn/refine/new/exit "
+    next_steps_options = ['learn', 'refine', 'new', 'exit']
     user_next_steps = user_input_value(next_steps_question, next_steps_options)
     
     while user_next_steps == 'learn':
@@ -280,7 +286,7 @@ while flag:
         user_next_steps = user_input_value(next_steps_question, next_steps_options)
     if user_next_steps == 'refine':
         pass
-    elif user_next_steps == 'exit':    
+    elif user_next_steps == 'exit' or user_next_steps == 'new':    
         if len(breed_list) == 1:
         # Add in here API call for dog pic
             final_result = format_breed_detail(breed_list)
@@ -290,28 +296,24 @@ while flag:
             print(final_result)
         now = datetime.now().strftime("%Y%m%d-%H%M")
         print(save_to_file(final_result, now))
-        # now = datetime.now().strftime("%Y%m%d-%H%M")
-        # filename = f"{now}-search.txt"
-        # with open(filename, "w") as f:
-        #     f.write(str(final_result))
-        # print("Your final result has been saved to a local file.")
         if len(breed_list) < 5:
             img_yn_question = "Would you like to see a picture of your "
             img_yn_question += "matched breed(s)? y/n "
             user_img_yn = user_input_value(img_yn_question, ['y', 'n'])
-            for breed in breed_list:
-                breed_id = breed['id']
-                breed_name = breed['name']
-                breed_img_url = get_breed_img(breed_id)
-                save_breed_img(breed_name, breed_img_url, now)
-
-
-            # match breed name to id
-            # run api call
-            # save pic locally
-            # name file as with search results
-
-        flag = False
+            if user_img_yn == 'y':
+                for breed in breed_list:
+                    breed_id = breed['id']
+                    breed_name = breed['name']
+                    breed_img_url = get_breed_img(breed_id)
+                    save_breed_img(breed_name, breed_img_url, now)
+            else:
+                pass
+        print("Thank you for using my dog recommendation programme!")
+        if user_next_steps == 'exit':
+            flag = False
+        else:
+            breed_list = data
+            
     # Check whether user input is recognised
     #flag_category = check_validity_user_choice(categories, user_category)
     #if flag_category:
@@ -383,7 +385,7 @@ while flag:
 #print(data[0]['weight']['metric'])
 #print(datetime.now().strftime("%Y%m%d-%H%M"))
         
-for breed in breed_list:
-    breed_id = breed['id']
-    print(breed_id)
-print(breed_list)
+# for breed in breed_list:
+#     breed_id = breed['id']
+#     print(breed_id)
+# print(breed_list)

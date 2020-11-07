@@ -17,11 +17,12 @@ Should
 - done - deal with any option
 
 Could
-- make an API call to include a picture of the dogs
-- option to start a new search
+- done - make an API call to include a picture of the dogs
+- done - option to start a new search
 - done - option to see available options e.g. for temperament
 - done - give user all info about a dog
 
 Won't
 - explore data (e.g. number of breeds, biggest dog, smallest dog)
 - extend to life span
+- allow for selecting multiple options (e.g. large and giant dogs)
