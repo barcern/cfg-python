@@ -277,16 +277,10 @@ while flag:
     # Deal with breed_group
     breed_group_question = "What breed group would you like? "
     breed_list = user_data(breed_list, breed_group_question, 'breed_group')
-    # breed_list = run_search(breed_group_question, 'breed_group', breed_list)
-    # show_breeds(breed_list)
-    # print(show_matches(breed_list))
     
     # Deal with temperament
     temperament_question = "What temperament should your dog have? "
     breed_list = user_data(breed_list, temperament_question, 'temperament')
-    # breed_list = run_search(temperament_question, 'temperament', breed_list)
-    # show_breeds(breed_list)
-    # print(show_matches(breed_list))
     
     if len(breed_list) == 1:
         final_result = format_breed_detail(breed_list)
@@ -312,12 +306,6 @@ while flag:
     if user_next_steps == 'refine':
         pass
     elif user_next_steps == 'exit' or user_next_steps == 'new':    
-        # if len(breed_list) == 1:
-        #     final_result = format_breed_detail(breed_list)
-        #     print(final_result)
-        # else:
-        #     final_result = end_search_early(breed_list)
-        #     print(final_result)
         now = datetime.now().strftime("%Y%m%d-%H%M")
         print(save_to_file(final_result, now))
         if len(breed_list) < 5:
@@ -337,78 +325,3 @@ while flag:
         else:
             breed_list = data
             
-    # Check whether user input is recognised
-    #flag_category = check_validity_user_choice(categories, user_category)
-    #if flag_category:
-    # Allow user to view available options
-    # options = show_options(current_data, user_category)  
-    # # If user input is valid, find user input for the category
-    # user_choice = user_choose_value()
-    # # Check whether the user has chosen a valid option
-    # flag_choice = check_validity_user_choice(options, user_choice)
-    # if flag_choice:
-
-    #     # If there is only one dog available, this is the perfect match
-    #     if len(breed_list) == 1:
-    #         print("Good news, we have found your perfect match!")
-    #         # Add in here API call for dog pic
-    #         print(format_breed_detail(breed_list))
-    #         flag = False
-    #         break
-    #     print(f"We have found {len(breed_list)} matches.")
-        
-    #     # Breed detail - user to provide y/n answer
-    #     breed_yn_question = "Would you like to learn more about any of "
-    #     breed_yn_question += "the dogs? y/n "
-    #     user_input_breed_yn = user_choose_yn(breed_yn_question)
-    #     while user_input_breed_yn == 'y':
-    #         user_breed = input("Which breed would you like to "
-    #                                        "learn more about? ").title()
-    #         breed_detail = get_breed_detail(user_breed)
-    #         if breed_detail == 'false':
-    #             print("Sorry, we do not recognise your search.")
-    #         else:
-    #             print(format_breed_detail(breed_detail))
-    #         user_input_breed_yn = user_choose_yn(breed_yn_question)
-            
-    #     current_data = breed_list
-    #     #else:
-    #     #    print("Sorry, we do not recognise this category.")
-    # else:
-    #     print("Sorry, we do not recognise this category.")    
-    
-    # # Next search - user to provide y/n answer 
-    # next_search_question = "Would you like to continue with your search? y/n "
-    # user_input_next_search = user_choose_yn(next_search_question)
-        
-    # # Ending search before finding the perfect match
-    # if user_input_next_search == "n":
-    #     flag = False
-    #     end_search_early(breed_list)
-
-        
-# test_data = [{'weight': {'imperial': '15 - 22', 'metric': '7 - 10'}, 'height': {'imperial': '10 - 11', 'metric': '25 - 28'}, 'id': 256, 'name': 'West Highland White Terrier', 'bred_for': 'Fox, badger, vermin hunting', 'breed_group': 'Terrier', 'life_span': '15 - 20 years', 'temperament': 'Hardy, Friendly, Alert, Independent, Gay, Active, Courageous'},
-# {'weight': {'imperial': '25 - 35', 'metric': '11 - 16'}, 'height': {'imperial': '18 - 22', 'metric': '46 - 56'}, 'id': 257, 'name': 'Whippet', 'bred_for': 'Coursing, racing', 'breed_group': 'Hound', 'life_span': '12 - 15 years', 'temperament': 'Friendly, Affectionate, Lively, Gentle, Intelligent, Quiet'},
-# {'weight': {'imperial': '60 - 85', 'metric': '27 - 39'}, 'height': {'imperial': '22 - 25', 'metric': '56 - 64'}, 'id': 258, 'name': 'White Shepherd', 'life_span': '12 – 14 years', 'temperament': 'Self-confidence, Aloof, Fearless, Alert, Companionable, Eager'},
-# {'weight': {'imperial': '15 - 19', 'metric': '7 - 9'}, 'height': {'imperial': '13 - 16', 'metric': '33 - 41'}, 'id': 259, 'name': 'Wire Fox Terrier', 'bred_for': 'Vermin hunting, fox bolting', 'life_span': '13 – 14 years', 'history': ' England', 'temperament': 'Fearless, Friendly, Bold, Keen, Alert, Quick'},
-# {'weight': {'imperial': '45 - 70', 'metric': '20 - 32'}, 'height': {'imperial': '20 - 24', 'metric': '51 - 61'}, 'id': 260, 'name': 'Wirehaired Pointing Griffon', 'bred_for': 'Gundog, "swamp-tromping", Flushing, pointing, and retrieving water fowl & game birds', 'breed_group': 'Sporting', 'life_span': '12 - 14 years', 'temperament': 'Loyal, Gentle, Vigilant, Trainable, Proud'},
-# {'weight': {'imperial': '45 - 65', 'metric': '20 - 29'}, 'height': {'imperial': '21.5 - 25', 'metric': '55 - 64'}, 'id': 261, 'name': 'Wirehaired Vizsla', 'breed_group': 'Sporting', 'life_span': '12 - 14 years'},
-# {'weight': {'imperial': '9 - 31', 'metric': '4 - 14'}, 'height': {'imperial': '10 - 23', 'metric': '25 - 58'}, 'id': 262, 'name': 'Xoloitzcuintli', 'breed_group': 'Non-Sporting', 'life_span': '12 - 14 years', 'temperament': 'Cheerful, Alert, Companionable, Intelligent, Protective, Calm'},
-# {'weight': {'imperial': '4 - 7', 'metric': '2 - 3'}, 'height': {'imperial': '8 - 9', 'metric': '20 - 23'}, 'id': 264, 'name': 'Yorkshire Terrier', 'bred_for': 'Small vermin hunting', 'breed_group': 'Toy', 'life_span': '12 - 16 years', 'temperament': 'Bold, Independent, Confident, Intelligent, Courageous'}]
-        
-# check_validity_dog_detail(test_data, 'temperament')
-    
-# test_date = [{'weight': {'imperial': '44 - 66', 'metric': '20 - 30'}, 'height': {'imperial': '30', 'metric': '76'}, 'id': 3, 'name': 'African Hunting Dog', 'bred_for': 'A wild pack animal', 'life_span': '11 years', 'temperament': 'Wild, Hardworking, Dutiful', 'origin': ''}]
-# format_dog_detail(test_date)
-  
-# for dog in data:
-#     print(dog['size'])
-    
-#print(data)
-#print(data[0]['weight']['metric'])
-#print(datetime.now().strftime("%Y%m%d-%H%M"))
-        
-# for breed in breed_list:
-#     breed_id = breed['id']
-#     print(breed_id)
-# print(breed_list)
