@@ -253,6 +253,17 @@ def save_breed_img(breed_name, breed_img_url, now):
     else:
         print("Unfortunately there are no pictures available for this breed.")
         
+def user_data(breed_list, question, characteristic):
+    """"""
+    if len(list_options(breed_list, characteristic)) > 2:
+        breed_list = run_search(question, characteristic, breed_list)
+        show_breeds(breed_list)
+        print(show_matches(breed_list))
+    else:
+        current_char = list_options(breed_list, characteristic)[0]
+        print(f"\nAll your current matches are {current_char} {characteristic}.")
+    return breed_list
+        
 breed_list = data
 flag = True
 categories = ['size', 'breed_group', 'temperament']
@@ -261,21 +272,28 @@ print("Welcome to my dog breed recommendation programme!")
 while flag:
     # Deal with size
     size_question = "What size dog would you like? "
-    breed_list = run_search(size_question, 'size', breed_list)
-    show_breeds(breed_list)
-    print(show_matches(breed_list))
-    
+    breed_list = user_data(breed_list, size_question, 'size')
+
     # Deal with breed_group
     breed_group_question = "What breed group would you like? "
-    breed_list = run_search(breed_group_question, 'breed_group', breed_list)
-    show_breeds(breed_list)
-    print(show_matches(breed_list))
+    breed_list = user_data(breed_list, breed_group_question, 'breed_group')
+    # breed_list = run_search(breed_group_question, 'breed_group', breed_list)
+    # show_breeds(breed_list)
+    # print(show_matches(breed_list))
     
     # Deal with temperament
     temperament_question = "What temperament should your dog have? "
-    breed_list = run_search(temperament_question, 'temperament', breed_list)
-    show_breeds(breed_list)
-    print(show_matches(breed_list))
+    breed_list = user_data(breed_list, temperament_question, 'temperament')
+    # breed_list = run_search(temperament_question, 'temperament', breed_list)
+    # show_breeds(breed_list)
+    # print(show_matches(breed_list))
+    
+    if len(breed_list) == 1:
+        final_result = format_breed_detail(breed_list)
+        print(final_result)
+    else:
+        final_result = end_search_early(breed_list)
+        print(final_result)
     
     next_steps_question = "Would you like to learn more about any of these "
     next_steps_question += "dogs, refine your search, start a new search or "
@@ -294,24 +312,23 @@ while flag:
     if user_next_steps == 'refine':
         pass
     elif user_next_steps == 'exit' or user_next_steps == 'new':    
-        if len(breed_list) == 1:
-            final_result = format_breed_detail(breed_list)
-            print(final_result)
-        else:
-            final_result = end_search_early(breed_list)
-            print(final_result)
+        # if len(breed_list) == 1:
+        #     final_result = format_breed_detail(breed_list)
+        #     print(final_result)
+        # else:
+        #     final_result = end_search_early(breed_list)
+        #     print(final_result)
         now = datetime.now().strftime("%Y%m%d-%H%M")
         print(save_to_file(final_result, now))
         if len(breed_list) < 5:
-            img_yn_question = "Would you like to see a picture of your "
+            img_yn_question = "Would you like to save a picture of your "
             img_yn_question += "matched breed(s)? y/n "
             user_img_yn = user_input_value(img_yn_question, ['y', 'n'])
             if user_img_yn == 'y':
                 for breed in breed_list:
-                    breed_id = breed['id']
-                    breed_name = breed['name']
-                    breed_img_url = get_breed_img(breed_id)
-                    save_breed_img(breed_name, breed_img_url, now)
+                    breed_img_url = get_breed_img(breed['id'])
+                    save_breed_img(breed['name'], breed_img_url, now)
+                print("Picture(s) have been saved to a local file.")
             else:
                 pass
         print("Thank you for using my dog recommendation programme!")
