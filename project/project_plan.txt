@@ -1,7 +1,7 @@
 Dog Recommendation App
 Must
 - done - ask user for key indicators e.g. height
-- tidy up code
+- done - tidy up code
 - done - make an API call based on the breed
 - done - return a list of suitable breeds
 - done - hints for user input
@@ -13,7 +13,7 @@ Should
 - done - ensure code cannot be broken by user input
 - done - extend to height and weight > use size
 - done - remove first empty string from options
-- refine user flow
+- done - refine user flow
 - done - deal with any option
 
 Could
@@ -21,8 +21,45 @@ Could
 - done - option to start a new search
 - done - option to see available options e.g. for temperament
 - done - give user all info about a dog
+- done - allow user to select multiple characteristics
 
 Won't
 - explore data (e.g. number of breeds, biggest dog, smallest dog)
 - extend to life span
-- allow for selecting multiple options (e.g. large and giant dogs)
+- order by number of matched characteristics when multiple selected
+
+Presentation
+- What was the original plan for the project? What does the project actually do?
+	- started from project 2 - search Edamam Recipe API, wanted to do something different
+	- looked up "fun APIs" and the dog API came up, written by a guy to create resources for learners
+	- dog breed recommendation programme!
+	- plan hasn't changed drastically - user chooses characteristics across categories, 
+	programme recommends a breed or multiple breeds
+	- user journey changed a lot following feedback from last week
+	- make choices across size, breed group and temperament then choose between learn (API call
+	based on user input), refine, new and exit
+	- saves results automatically plus option to save a pic of breed locally for <5 breeds
+	- uses basically everything we learned plus other things I looked up (try except)	
+- A brief explanation of an interesting piece of code in the project & a demo of running it
+	- run the whole thing
+	- user input handling
+- One thing that you learned during the project
+	- technical: try except
+	- non-technical: difficult to visualise user journey
+- A difficult part of the project that you solved
+	- inconsistent data
+		- some breeds have missing data, this would throw errors
+		- looked into try except to resolve this
+		- plus did data manipulation at start to ensure all data is lower case and 
+		created size categories
+	- user input
+		- sometimes I would accidentally make a typo and break the programme
+		- wanted to make it more robust
+		- each input is checked against a list of acceptable values
+		- plus can choose whether one or multiple values can be accepted
+- What would you do if they had more time on the project?
+	- order by number of matched characteristics when multiple selected
+	- extend to life span
+	- feedback from more users for improvements
+	- explore API more e.g. upload own pics
+	- would add a way out for users during user input
